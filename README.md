@@ -22,6 +22,7 @@ The following tutorial describes the various steps involved in the development/c
 - A graph (of your choice) and description of mean, minimum and maximum # of reads <span style="color:red">\[use terms ‘read’ or ‘read pairs’ correctly]
  
 <hr>
+
 ##### Module 1A
 ### 4. **Tophat2 - alignment process description**
 - Describe the alignment process/algorithm employed by Tophat2 for RNA-seq alignment.
@@ -47,6 +48,7 @@ iii. % Discordance
 \[Understand how the samples cluster using these plots. Do they group the way you would expect based on the conditions? What is your interpretation of this view of the data?]
 
 <hr>
+
 ##### Module 2
 > Note: The steps in this module are not necessary, but can be useful to help identify the best aligner for your pipeline.
 
@@ -60,9 +62,10 @@ iii. % Discordance
 - Are there any command options you included in TopHat2 (or HiSat2/STAR) but not the other that make it difficult to compare the results directly or make a conclusion about performance?
 
 <hr>
+
 ##### Module 3
 ### 8. **Pathway analysis**
 - Information about upregulated/downregulated gene lists and source and affected pathways.
 - Select a list of genes that were differentially expressed and were UPREGULATED in a treatment vs. control comparison. 
 - Select a list of genes that were differentially expressed and were DOWNREGULATED in a treatment vs. control comparison.
-- Submit each list to IPA for a simple pathway analysis (ORA- overrepresentation analysis). Describe affected pathways that interest you, a hypothesis about why this pathway might be UP or DOWN in the conditions you chose.
+- Submit each list to IPA for a simple pathway analysis (ORA - overrepresentation analysis). Describe affected pathways that interest you, a hypothesis about why this pathway might be UP or DOWN in the conditions you chose.
