@@ -31,7 +31,7 @@ i. Starting with unaligned reads (FASTQ)
 ii. Aligning to a reference genome (FASTA)
 iii. Outputting a file of aligned reads (BAM) and associated statistics.
 
-5. **Tophat2 - alignment metrics and statistics**
+### 5. **Tophat2 - alignment metrics and statistics**
 - Information about the alignment process and output.
 - Preapre a graph (of your choice) and description of mean, minimum and maximum for the following items:
 i. % Alignment (# aligned reads / # initial reads)
