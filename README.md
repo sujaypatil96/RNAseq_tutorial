@@ -19,7 +19,8 @@ The following tutorial describes the various steps involved in the development/c
 
 ### 3. **Pre-alignment sequencing metrics**
 - Describe finalised number of samples before alignment.
-- A graph (of your choice) and description of mean, minimum and maximum # of reads <span style="color:red">\[use terms ‘read’ or ‘read pairs’ correctly]</span>
+- A graph (of your choice) and description of mean, minimum and maximum # of reads <span style="color:red">\[use terms ‘read’ or ‘read pairs’ correctly]
+ 
 <hr>
 ##### Module 1A
 ### 4. **Tophat2 - alignment process description**
@@ -43,10 +44,12 @@ iii. % Discordance
 - Limit FPKM list to genes selected from step 1.
 
 - Make a Heatmap, Dendrogram, and PCA plot(s) of the filtered FPKM values – For dendrogram and PCA plot, plot SAMPLES not GENES. For Heatmap you can plot SAMPLES, GENES or BOTH.
-<span style="color:red">[Understand how the samples cluster using these plots. Do they group the way you would expect based on the conditions? What is your interpretation of this view of the data?]</span>
+\[Understand how the samples cluster using these plots. Do they group the way you would expect based on the conditions? What is your interpretation of this view of the data?]
+
 <hr>
 ##### Module 2
-Note: The steps in this module are not necessary, but can be useful to help identify the best aligner for your pipeline.
+> Note: The steps in this module are not necessary, but can be useful to help identify the best aligner for your pipeline.
+
 ### 7. **HiSat2 or STAR comparison**
 - Choose 3-4 of your samples. Align with HiSat2 or STAR. Compare alignment metrics with TopHat2 output for these same files.
 - Should include graphs (of your choice) comparing mean for both methods evaluating:
@@ -55,6 +58,7 @@ ii.	# of Aligned Reads
 iii. % Discordance
 - Based on any/all of the above results, which alignment tool performed better?
 - Are there any command options you included in TopHat2 (or HiSat2/STAR) but not the other that make it difficult to compare the results directly or make a conclusion about performance?
+
 <hr>
 ##### Module 3
 ### 8. **Pathway analysis**
