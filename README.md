@@ -8,6 +8,7 @@ The following tutorial describes the various steps involved in the development/c
 ### 1. **Biology/Introduction**
 > In this step we will describe the biology/human disease under analysis.
 - What is the disease / disorder?
+
 The disease/disorder that we will be considering for the analysis pipeline is 'Alzheimer's Disease'. The RNA-seq dataset was obtained from GEO. You can find the [FASTQ files for analysis here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE113524). There are 39 samples that the research team analyzed as part of an experimental study. You can [access the paper here](https://www.nature.com/articles/s41380-019-0563-5). For our analysis we will consider only 9 of these samples and we will split into 3 groups on the basis of their Braak stage. The 9 selected samples have been grouped as follows:
 
 | Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
