@@ -8,6 +8,25 @@ The following tutorial describes the various steps involved in the development/c
 ### 1. **Biology/Introduction**
 > In this step we will describe the biology/human disease under analysis.
 - What is the disease / disorder?
+The disease/disorder that we will be considering for the analysis pipeline is 'Alzheimer's Disease'. The RNA-seq dataset was obtained from GEO. You can find the [FASTQ files for analysis here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE113524). There are 39 samples that the research team analyzed as part of an experimental study. You can [access the paper here](https://www.nature.com/articles/s41380-019-0563-5). For our analysis we will consider only 9 of these samples and we will split into 3 groups on the basis of their Braak stage. The 9 selected samples have been grouped as follows:
+
+| Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
+| ------------- |:-------------:|:-----:|:-----:|:-----:|:-----:|-----:|
+| 5 | SRR7056889 | Healthy5 RNA-Seq | 85 | M | 1 | Early (Control) |
+| 6      | SRR7056890 |   Healthy6 RNA-Seq | 88 | M | 1 | Early (Control) |
+| 38 | SRR8942876 |    Healthy38 RNA-Seq | 94 | M | 1 | Early (Control) |
+
+| Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
+| ------------- |:-------------:|:-----:|:-----:|:-----:|:-----:|-----:|
+| 20 | SRR7056904 | Patient10 RNA-Seq | 88 | M | 4 | Mid AD |
+| 35      | SRR8942873 | Patient35 RNA-Seq | 87 | M | 4 | Mid AD |
+| 37 | SRR8942875 | Patient37 RNA-Seq | 95 | M | 3 | Mid AD |
+
+| Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
+| ------------- |:-------------:|:-----:|:-----:|:-----:|:-----:|-----:|
+| 5 | SRR7056899 | Patient5 RNA-Seq | 87 | M | 6 | Late AD |
+| 6      | SRR8942871 | Patient33 RNA-Seq | 96 | M | 5 | Late AD |
+| 38 | SRR7056901 | Patient7 RNA-Seq | 94 | 82 | 6 | Late AD |
 - What type of cells / tissue was used?
 - Describe an a priori hypothesis about a gene, pathway, etc. based on the disease/experiment? <span style="color:red">\[this needs to be tested]</span>
 
