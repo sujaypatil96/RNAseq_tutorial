@@ -28,8 +28,9 @@ The disease/disorder that we will be considering for the analysis pipeline is 'A
 | 5 | SRR7056899 | Patient5 RNA-Seq | 87 | M | 6 | Late AD |
 | 6      | SRR8942871 | Patient33 RNA-Seq | 96 | M | 5 | Late AD |
 | 38 | SRR7056901 | Patient7 RNA-Seq | 94 | 82 | 6 | Late AD |
-- What type of cells / tissue was used?
 - Describe an a priori hypothesis about a gene, pathway, etc. based on the disease/experiment? <span style="color:red">\[this needs to be tested]</span>
+
+We know that the APOE gene mutation, speciifically, the E4 allele of the APOE gene is one of the most firmly established risk factors of late onset Alzheimer's Disease. So we will simply be testing the hypothesis that the APOE gene is a significantly differentially expressed gene in Alzheimer's related pathways. 
 
 ### 2. **Sequencing type / source**
 > In this step we will describe the sequencing data and source.
