@@ -67,6 +67,84 @@ i. Starting with unaligned reads (FASTQ)
 ii. Aligning to a reference genome (FASTA)
 iii. Outputting a file of aligned reads (BAM) and associated statistics.
 
+_Note: For our analysis we will use the human GRCh38 version of the genome from Ensembl._
+
+From within (or outside, it is up to you) the directory that contains your fasta, and gtf files, use the command bowtie2-build to make index files.
+
+Command usage is as follows:
+
+    bowtie2-build FASTA-reference desired-prefix-of-index-files
+
+First we will we be using bowtie2 to build index of the reference (in this human) genome.
+
+In the end, your FASTA reference and bowtie index files must have the same prefix. So you can either name the indexes with the title already provided with the FASTA reference, or you can make a new name, and then rename the FASTA reference afterwards with mv to match the index files. Both example are below:
+
+1) Keeping current FASTA naming convention:
+
+bowtie2-build Homo_sapiens.GRCh38.dna.primary_assembly.fa Homo_sapiens.GRCh38.dna.primary_assembly &
+
+2) Changing naming convention (what I did):
+
+bowtie2-build Homo_sapiens.GRCh38.dna.primary_assembly.fa ensembl.GRCh38.99 &
+
+mv Homo_sapiens.GRCh38.dna.primary_assembly.fa
+ensembl.GRCh38.99.fa
+
+You can start 6x TopHat2 alignments:
+
+1) Use 2 single-end (SE) fastq files of your choosing
+
+2) We will have you do 3x separate alignments with these two samples (for total of 6x alignments)- one where we align to the entire genome, one where we we only align to the whole transcriptom, and another where you strictly align to ribosomal RNA.. then you can compare alignment metrics in class. 
+
+Command Line for SE alignemnt (whole genome):
+`nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/Homo_sapiens.GRCh38.99.chr.gtf -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99 File1.fastq > NAME_genome.nohup.out &`
+
+Command Line for SE alignemnt (transcriptome only):
+`nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/Homo_sapiens.GRCh38.99.chr.gtf -T -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99 File1.fastq > NAME_transcriptome.nohup.out &`
+
+Command Line for SE alignemnt (rRNA only):
+`nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/rRNA_Homo_sapiens.GRCh38.99.chr.gtf -T -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99File1.fastq > NAME_rRNA.nohup.out &`
+
+List of command options and files (in order of appearance):
+
+`nohup === don't hang up
+
+tophat2 === run tophat2 (v2.1.1)
+
+-p 4 === use 4 threads
+
+-G Homo_sapiens.GRCh38.99.chr.gtf === use this gtf file as a transcriptome guide and to make transcriptome index files (note I gave entire path to where this file is since you are not working in that directory)
+
+-T == align to transcriptome only (this option is only included in the last two commands as that will dictate that only things that align to your given GTF (transcriptome or rRNA) will be kept!!)
+
+-o OUTPUT_DIRECTORY === whatever you want the directory to be called where all of your alignment files to go (This must be unique for each run or else will overwrite the file!!!)
+
+ensembl.GRCh38.99 === prefix used for the FASTA reference and bowtie2 index files (Only give the prefix- do not give file extenstions like .fa or .bt2!!!) (note I gave entire path to where this file is since you are not working in that directory)
+
+File1.fastq === your chosen fastq (if SE)
+
+** make sure to repeat for 2 samples (i.e., you should be doing 6x alignments)
+
+NAME.nohup.out & === Name of your nohup file (This must be unique for each run or else will overwrite the file!!! This will record all the steps and what happened during the alignment so is a very good things to have recorded)`
+
+Building index files could take up to an hour- I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity. bowtie2-index-screenshot.png Attached screen shot from last year that shows my directory- where all 6 bowtie index files and the fasta reference have the same prefix- please note that your files will be version GRCh38.99 (not 38.91) as there have been newer releases since this screenshot was taken.
+
+FASTQC is primarily for pre-alignment and it takes as input FASTQ or FASTA files. To make sure sequence content, sequence quality, sequence representation (no over-representation of adapters), and KMER representation are all adequate for alignment.
+As far as pre-alignment quality control, we can manually load fastq files in FastQC to make sure the average sequence quality score is at least 25. I would like to trim any overrepresented sequences (usually from adapters) and long mononucleotide repeats (length threshold is not yet defined).
+
+To trim sequence adapter from the read FASTQ files. The output of this step will be trimmed FASTQ files for each data set.
+Once you have trimmed the reads, compare a pre- and post- trimming FastQ file using the FastQC tool.
+My typical workflow is to run FastQC pre- and post-trimming with trimmomatic to compare, though it isn't always necessary to do any trimming depending on the usage/quality of the data.
+
+Genes are the functional units of a reference genome and gene annotations describe the structure of transcripts expressed from those gene loci. GTF (Gene Transfer Format) is a common file format used to store gene and transcript annotation information. If annotation is available as a GTF file, TopHat will extract the transcript sequences and use Bowtie2 to align reads to this virtual transcriptome first. Only the reads that do not fully map to the transcriptome will then be mapped on the genome. The reads that remain unmapped are split into shorter segments, which are then aligned to the genome. Segment mappings are used to find potential splice sites.
+
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-5.jpg)
+
+This tool returns the following file: 
+`tophat.bam`: BAM file containing the alignments
+
+If your RNA-seq data was produced with a stranded/directional protocol, it is important that you select the correct strandedness option in the parameter "Library type": fr-unstranded (Standard Illumina).
+
 ### 5. **Tophat2 - alignment metrics and statistics**
 - Information about the alignment process and output.
 - Preapre a graph (of your choice) and description of mean, minimum and maximum for the following items:
