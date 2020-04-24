@@ -97,37 +97,31 @@ You can start 6x TopHat2 alignments:
 2) We will have you do 3x separate alignments with these two samples (for total of 6x alignments)- one where we align to the entire genome, one where we we only align to the whole transcriptom, and another where you strictly align to ribosomal RNA.. then you can compare alignment metrics in class. 
 
 Command Line for SE alignemnt (whole genome):
-`nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/Homo_sapiens.GRCh38.99.chr.gtf -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99 File1.fastq > NAME_genome.nohup.out &`
+
+    nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/Homo_sapiens.GRCh38.99.chr.gtf -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99 File1.fastq > NAME_genome.nohup.out &
 
 Command Line for SE alignemnt (transcriptome only):
-`nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/Homo_sapiens.GRCh38.99.chr.gtf -T -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99 File1.fastq > NAME_transcriptome.nohup.out &`
+
+    nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/Homo_sapiens.GRCh38.99.chr.gtf -T -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99 File1.fastq > NAME_transcriptome.nohup.out &
 
 Command Line for SE alignemnt (rRNA only):
-`nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/rRNA_Homo_sapiens.GRCh38.99.chr.gtf -T -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99File1.fastq > NAME_rRNA.nohup.out &`
+
+    nohup tophat2 -p 4 -G /scratch/sujaysan/515/References/rRNA_Homo_sapiens.GRCh38.99.chr.gtf -T -o name_of_desired_output_directory /scratch/sujaysan/515/References/ensembl.GRCh38.99File1.fastq > NAME_rRNA.nohup.out &
 
 List of command options and files (in order of appearance):
 
-`nohup === don't hang up
+    nohup === don't hang up
+    tophat2 === run tophat2 (v2.1.1)
+    -p 4 === use 4 threads
+    -G Homo_sapiens.GRCh38.99.chr.gtf === use this gtf file as a transcriptome guide and to make transcriptome index files (note I gave entire path to where this file is since you are not working in that directory)
+    -T == align to transcriptome only (this option is only included in the last two commands as that will dictate that only things that align to your given GTF (transcriptome or rRNA) will be kept!!)
+    -o OUTPUT_DIRECTORY === whatever you want the directory to be called where all of your alignment files to go (This must be unique for each run or else will overwrite the file!!!)
+    ensembl.GRCh38.99 === prefix used for the FASTA reference and bowtie2 index files (Only give the prefix- do not give file extenstions like .fa or .bt2!!!) (note I gave entire path to where this file is since you are not working in that directory)
+    File1.fastq === your chosen fastq (if SE)
+    ** make sure to repeat for 2 samples (i.e., you should be doing 6x alignments)
+    NAME.nohup.out & === Name of your nohup file (This must be unique for each run or else will overwrite the file!!! This will record all the steps and what happened during the alignment so is a very good things to have recorded)`
 
-tophat2 === run tophat2 (v2.1.1)
-
--p 4 === use 4 threads
-
--G Homo_sapiens.GRCh38.99.chr.gtf === use this gtf file as a transcriptome guide and to make transcriptome index files (note I gave entire path to where this file is since you are not working in that directory)
-
--T == align to transcriptome only (this option is only included in the last two commands as that will dictate that only things that align to your given GTF (transcriptome or rRNA) will be kept!!)
-
--o OUTPUT_DIRECTORY === whatever you want the directory to be called where all of your alignment files to go (This must be unique for each run or else will overwrite the file!!!)
-
-ensembl.GRCh38.99 === prefix used for the FASTA reference and bowtie2 index files (Only give the prefix- do not give file extenstions like .fa or .bt2!!!) (note I gave entire path to where this file is since you are not working in that directory)
-
-File1.fastq === your chosen fastq (if SE)
-
-** make sure to repeat for 2 samples (i.e., you should be doing 6x alignments)
-
-NAME.nohup.out & === Name of your nohup file (This must be unique for each run or else will overwrite the file!!! This will record all the steps and what happened during the alignment so is a very good things to have recorded)`
-
-Building index files could take up to an hour- I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity. bowtie2-index-screenshot.png Attached screen shot from last year that shows my directory- where all 6 bowtie index files and the fasta reference have the same prefix- please note that your files will be version GRCh38.99 (not 38.91) as there have been newer releases since this screenshot was taken.
+_Note: Building index files could take up to an hour- I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity. bowtie2-index-screenshot.png Attached screen shot from last year that shows my directory- where all 6 bowtie index files and the fasta reference have the same prefix._
 
 FASTQC is primarily for pre-alignment and it takes as input FASTQ or FASTA files. To make sure sequence content, sequence quality, sequence representation (no over-representation of adapters), and KMER representation are all adequate for alignment.
 As far as pre-alignment quality control, we can manually load fastq files in FastQC to make sure the average sequence quality score is at least 25. I would like to trim any overrepresented sequences (usually from adapters) and long mononucleotide repeats (length threshold is not yet defined).
