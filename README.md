@@ -89,11 +89,11 @@ Changing naming convention (what I did):
 
     mv Homo_sapiens.GRCh38.dna.primary_assembly.fa ensembl.GRCh38.99.fa
 
-You can start 6x TopHat2 alignments:
+You can start TopHat2 alignments:
 
 1) Use 2 single-end (SE) fastq files of your choosing
 
-2) We will have you do 3x separate alignments with these two samples (for total of 6x alignments)- one where we align to the entire genome, one where we we only align to the whole transcriptom, and another where you strictly align to ribosomal RNA.. then you can compare alignment metrics in class. 
+2) We will have you do 3x separate alignments with these two samples (for total of 6x alignments)- one where we align to the entire genome, one where we we only align to the whole transcriptome, and another where you strictly align to ribosomal RNA.
 
 Command Line for SE alignemnt (whole genome):
 
