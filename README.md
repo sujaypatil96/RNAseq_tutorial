@@ -79,16 +79,15 @@ First we will we be using bowtie2 to build index of the reference (in this human
 
 In the end, your FASTA reference and bowtie index files must have the same prefix. So you can either name the indexes with the title already provided with the FASTA reference, or you can make a new name, and then rename the FASTA reference afterwards with mv to match the index files. Both example are below:
 
-1) Keeping current FASTA naming convention:
+Keeping current FASTA naming convention:
 
-bowtie2-build Homo_sapiens.GRCh38.dna.primary_assembly.fa Homo_sapiens.GRCh38.dna.primary_assembly &
+    bowtie2-build Homo_sapiens.GRCh38.dna.primary_assembly.fa Homo_sapiens.GRCh38.dna.primary_assembly &
 
-2) Changing naming convention (what I did):
+Changing naming convention (what I did):
 
-bowtie2-build Homo_sapiens.GRCh38.dna.primary_assembly.fa ensembl.GRCh38.99 &
+    bowtie2-build Homo_sapiens.GRCh38.dna.primary_assembly.fa ensembl.GRCh38.99 &
 
-mv Homo_sapiens.GRCh38.dna.primary_assembly.fa
-ensembl.GRCh38.99.fa
+    mv Homo_sapiens.GRCh38.dna.primary_assembly.fa ensembl.GRCh38.99.fa
 
 You can start 6x TopHat2 alignments:
 
@@ -121,7 +120,7 @@ List of command options and files (in order of appearance):
     ** make sure to repeat for 2 samples (i.e., you should be doing 6x alignments)
     NAME.nohup.out & === Name of your nohup file (This must be unique for each run or else will overwrite the file!!! This will record all the steps and what happened during the alignment so is a very good things to have recorded)`
 
-_Note: Building index files could take up to an hour- I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity. bowtie2-index-screenshot.png Attached screen shot from last year that shows my directory- where all 6 bowtie index files and the fasta reference have the same prefix._
+_Note: Building index files could take up to an hour- I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity._
 
 FASTQC is primarily for pre-alignment and it takes as input FASTQ or FASTA files. To make sure sequence content, sequence quality, sequence representation (no over-representation of adapters), and KMER representation are all adequate for alignment.
 As far as pre-alignment quality control, we can manually load fastq files in FastQC to make sure the average sequence quality score is at least 25. I would like to trim any overrepresented sequences (usually from adapters) and long mononucleotide repeats (length threshold is not yet defined).
@@ -134,8 +133,7 @@ Genes are the functional units of a reference genome and gene annotations descri
 
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-5.jpg)
 
-This tool returns the following file: 
-`tophat.bam`: BAM file containing the alignments
+This tool returns the following file: `tophat.bam`: BAM file containing the alignments
 
 If your RNA-seq data was produced with a stranded/directional protocol, it is important that you select the correct strandedness option in the parameter "Library type": fr-unstranded (Standard Illumina).
 
@@ -145,6 +143,10 @@ If your RNA-seq data was produced with a stranded/directional protocol, it is im
 i. % Alignment (# aligned reads / # initial reads)
 ii. # of Aligned Reads
 iii. % Discordance
+
+_Note: $ discordance is a concept that applies only to paired-end (PE) data, we do not need to worry about it since our data is single-end (SE)._
+
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-6.jpg)
 
 ##### Module 1B
 ### 6. **Cuffdiff results**
