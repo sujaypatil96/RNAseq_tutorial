@@ -11,17 +11,23 @@ The following tutorial describes the various steps involved in the development/c
 
 The disease/disorder that we will be considering for the analysis pipeline is 'Alzheimer's Disease'. The RNA-seq dataset was obtained from GEO. You can find the [FASTQ files for analysis here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE113524). There are 39 samples that the research team analyzed as part of an experimental study. You can [access the paper here](https://www.nature.com/articles/s41380-019-0563-5). For our analysis we will consider only 9 of these samples and we will split into 3 groups on the basis of their Braak stage. The 9 selected samples have been grouped as follows:
 
+Group 1 (Control patients)
+
 | Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
 | ------------- |:-------------:|:-----:|:-----:|:-----:|:-----:|-----:|
 | 5 | SRR7056889 | Healthy5 RNA-Seq | 85 | M | 1 | Early (CTRL) |
 | 6      | SRR7056890 |   Healthy6 RNA-Seq | 88 | M | 1 | Early (CTRL) |
 | 38 | SRR8942876 |    Healthy38 RNA-Seq | 94 | M | 1 | Early (CTRL) |
 
+Group 2 (Mid Braak AD patients)
+
 | Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
 | ------------- |:-------------:|:-----:|:-----:|:-----:|:-----:|-----:|
 | 20 | SRR7056904 | Patient10 RNA-Seq | 88 | M | 4 | Mid AD (MID_BRAAK) |
 | 35      | SRR8942873 | Patient35 RNA-Seq | 87 | M | 4 | Mid AD (MID_BRAAK) |
 | 37 | SRR8942875 | Patient37 RNA-Seq | 95 | M | 3 | Mid AD (MID_BRAAK) |
+
+Group 3 (Late Braak AD patients)
 
 | Sample # | SRA record           | Sample| Age  | Sex  | Braak stage  | Group  |
 | ------------- |:-------------:|:-----:|:-----:|:-----:|:-----:|-----:|
@@ -93,7 +99,7 @@ You can start TopHat2 alignments:
 
 1) Use 2 single-end (SE) fastq files of your choosing
 
-2) We will have you do 3x separate alignments with these two samples (for total of 6x alignments)- one where we align to the entire genome, one where we we only align to the whole transcriptome, and another where you strictly align to ribosomal RNA.
+2) We will have you do 3 separate alignments - one where we align to the entire genome, one where we we only align to the whole transcriptome, and another where you strictly align to ribosomal RNA.
 
 Command Line for SE alignemnt (whole genome):
 
@@ -117,10 +123,10 @@ List of command options and files (in order of appearance):
     -o OUTPUT_DIRECTORY === whatever you want the directory to be called where all of your alignment files to go (This must be unique for each run or else will overwrite the file!!!)
     ensembl.GRCh38.99 === prefix used for the FASTA reference and bowtie2 index files (Only give the prefix- do not give file extenstions like .fa or .bt2!!!) (note I gave entire path to where this file is since you are not working in that directory)
     File1.fastq === your chosen fastq (if SE)
-    ** make sure to repeat for 2 samples (i.e., you should be doing 6x alignments)
+    ** make sure to repeat for 2 samples
     NAME.nohup.out & === Name of your nohup file (This must be unique for each run or else will overwrite the file!!! This will record all the steps and what happened during the alignment so is a very good things to have recorded)`
 
-_Note: Building index files could take up to an hour- I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity._
+_Note: Building index files could take up to an hour - I highly suggest using nohup if you don't want to keep your terminal open or are worried about internet connectivity._
 
 FASTQC is primarily for pre-alignment and it takes as input FASTQ or FASTA files. To make sure sequence content, sequence quality, sequence representation (no over-representation of adapters), and KMER representation are all adequate for alignment.
 As far as pre-alignment quality control, we can manually load fastq files in FastQC to make sure the average sequence quality score is at least 25. I would like to trim any overrepresented sequences (usually from adapters) and long mononucleotide repeats (length threshold is not yet defined).
@@ -148,11 +154,23 @@ _Note: $ discordance is a concept that applies only to paired-end (PE) data, we 
 
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-6.jpg)
 
+Looking at the above results for percentage alignment, we can see that the avg. % alignment was about 39% which in general is a poor alignment percentage, basically indicating enough reads could not be mapped to the reference genome. See the below slide which summarizes some of the possible causes.
+
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-7.jpg)
+
 ##### Module 1B
 ### 6. **Cuffdiff results**
 - Select a list of genes that were differentially expressed in your cuffdiff_exp file from the analysis you did with the stats test turned ON.
 - Get the FPKM values for ALL of your samples in your genes_fpkm.tracking file from the analysis you did with the stats turned OFF.
 - Limit FPKM list to genes selected from step 1.
+
+The below flowchart summarizes the workflow to obtain a 'good size' gene list for differential expressed analysis/studies.
+
+General note:
+
+Do we need to scale genomics data? It depends. If we are working with raw gene expression data from RNA-Seq or gene expression microarrays, then definitely say yes. Genes (and isoforms) can have dramatically different levels of expression- some genes are lowly expressed, others are highly expressed. So if we had values such as FPKM, TPM, exon counts, signal intensities, etc., then this data should definitely be scaled before clustering analysis so that the highly expressed genes don’t “drive the results”. If we already normalized the gene expression data and were looking at Log2 fold differences across samples compared to a reference, for example, then scaling the data is probably not as necessary.
+
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-8.jpg)
 
 - Make a Heatmap, Dendrogram, and PCA plot(s) of the filtered FPKM values – For dendrogram and PCA plot, plot SAMPLES not GENES. For Heatmap you can plot SAMPLES, GENES or BOTH.
 \[Understand how the samples cluster using these plots. Do they group the way you would expect based on the conditions? What is your interpretation of this view of the data?]
