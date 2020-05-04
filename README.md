@@ -175,6 +175,16 @@ Do we need to scale genomics data? It depends. If we are working with raw gene e
 - Make a Heatmap, Dendrogram, and PCA plot(s) of the filtered FPKM values – For dendrogram and PCA plot, plot SAMPLES not GENES. For Heatmap you can plot SAMPLES, GENES or BOTH.
 \[Understand how the samples cluster using these plots. Do they group the way you would expect based on the conditions? What is your interpretation of this view of the data?]
 
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-9.jpg)
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-10.jpg)
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-11.jpg)
+
+Interpretation points:
+
+The main pattern to look for is a rectangular area of about the same color. That suggests that there is a group of rows that are correlated with the corresponding group of columns. These figures simply cluster rows and columns of a data matrix and show both dendrograms alongside a color-scaled representation of the data matrix itself. When I say data matrix, I mean a data matrix of the log-scaled FPKM values. This data should be scaled before clustering analysis so that the highly expressed genes don’t “drive the results”. So 2/3 of your controls are driving the difference, but the clustering is not consistent across all cases/controls, this is the result of only having a small number of replicates in the test.
+
+It is important to appreciate that the dendrogram is a summary of the distance matrix.
+
 <hr>
 
 ##### Module 2
