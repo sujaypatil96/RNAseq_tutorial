@@ -193,7 +193,7 @@ It is important to appreciate that the dendrogram is a summary of the distance m
 ### 7. **HiSat2 or STAR comparison**
 - Choose 3-4 of your samples. Align with HiSat2 or STAR. Compare alignment metrics with TopHat2 output for these same files.
 
-For this comparison will be using sample #20 and #35 from the MID_BRAAK group, and sample #5 and #6, as can be seen in the tables in [Module 0 Section 1](https://github.com/sujaypatil96/rnaseq-pipeline#1-biologyintroduction).
+For this comparison will be using sample #20 and #35 from the MID_BRAAK group, and sample #5 and #6 from the LATE_BRAAK group, as can be seen in the tables in [Module 0 Section 1](https://github.com/sujaypatil96/rnaseq-pipeline#1-biologyintroduction).
 
 - Should include graphs (of your choice) comparing mean for both methods evaluating:
 i. % Alignment (# aligned reads / # initial reads)
@@ -201,12 +201,9 @@ ii.	# of Aligned Reads
 iii. % Discordance
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-12.jpg)
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-13.jpg)
-
 - Based on any/all of the above results, which alignment tool performed better?
-Newer aligners will tend to perform better, so it is not surprising that we are getting better results with HISAT2
-
+Newer aligners will tend to perform better, so it is not surprising that we are getting better results with HISAT2.
 <hr>
-
 ##### Module 3
 ### 8. **Pathway analysis**
 - Information about upregulated/downregulated gene lists and source and affected pathways.
