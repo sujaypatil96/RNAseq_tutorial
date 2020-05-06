@@ -203,7 +203,9 @@ iii. % Discordance
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-13.jpg)
 - Based on any/all of the above results, which alignment tool performed better?
 Newer aligners will tend to perform better, so it is not surprising that we are getting better results with HISAT2.
+
 <hr>
+
 ##### Module 3
 ### 8. **Pathway analysis**
 - Information about upregulated/downregulated gene lists and source and affected pathways.
