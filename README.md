@@ -200,14 +200,22 @@ Newer aligners will tend to perform better, so it is not surprising that we are 
 ##### Module 3
 ### 8. **Pathway analysis**
 - Information about upregulated/downregulated gene lists and source and affected pathways.
+
 Use the R script provided in this directory (_cuffdiff_analysis.R_), on your _gene_exp.diff_ and _genes.fpkm_tracking_ files. Use custom log2FC and p-value filters to reduce the size of your initial gene list to about ~50-850 genes. Filter out the upregulated genes and the downregulated genes based on the logic in the flowchart described in [Module 1B section 6](https://github.com/sujaypatil96/rnaseq-pipeline#6-cuffdiff-results).
+
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-14.jpg)
+
 - Select a list of genes that were differentially expressed and were UPREGULATED in a treatment vs. control comparison.
+
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-15.jpg)
-You can find the list of upregulated genes in the _upregulated_genes.txt_ file in this directory.
-- Select a list of genes that were differentially expressed and were DOWNREGULATED in a treatment vs. control comparison.
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-16.jpg)
-You can find the list of downregulated genes in the _downregulated_genes.txt_ file in this directory.
-- Submit each list to IPA for a simple pathway analysis (ORA - overrepresentation analysis). Describe affected pathways that interest you, a hypothesis about why this pathway might be UP or DOWN in the conditions you chose.
-Per the below screenshot you can see that APOE gene has appeared in our list of upgregulated genes which implies that there is a change in the expression levels of this gene in Alzheimer's patients. Therefore, we have confirmed our initial hypothesis.
+
+You can find the list of upregulated genes in the _upregulated_genes.txt_ file in this directory.
+
+- Select a list of genes that were differentially expressed and were DOWNREGULATED in a treatment vs. control comparison.
+
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-17.jpg)
+
+You can find the list of downregulated genes in the _downregulated_genes.txt_ file in this directory.
+
+Per the above image(s) you can see that APOE gene has appeared in our list of upgregulated genes which implies that there is a change in the expression levels of this gene in Alzheimer's patients. Therefore, we have confirmed our initial hypothesis.
