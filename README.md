@@ -60,10 +60,7 @@ Sequencing platform: Illumina Hi-seq 2500.
 ### 3. **Pre-alignment sequencing metrics**
 - Describe finalised number of samples before alignment.
 - A graph (of your choice) and description of mean, minimum and maximum # of reads <span style="color:red">\[use terms ‘read’ or ‘read pairs’ correctly]
- 
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-4.jpg)
- 
-<hr>
 
 ##### Module 1A
 ### 4. **Tophat2 - alignment process description**
@@ -136,10 +133,9 @@ Once you have trimmed the reads, compare a pre- and post- trimming FastQ file us
 My typical workflow is to run FastQC pre- and post-trimming with trimmomatic to compare, though it isn't always necessary to do any trimming depending on the usage/quality of the data.
 
 Genes are the functional units of a reference genome and gene annotations describe the structure of transcripts expressed from those gene loci. GTF (Gene Transfer Format) is a common file format used to store gene and transcript annotation information. If annotation is available as a GTF file, TopHat will extract the transcript sequences and use Bowtie2 to align reads to this virtual transcriptome first. Only the reads that do not fully map to the transcriptome will then be mapped on the genome. The reads that remain unmapped are split into shorter segments, which are then aligned to the genome. Segment mappings are used to find potential splice sites.
-
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-5.jpg)
-
-This tool returns the following file: `tophat.bam`: BAM file containing the alignments
+This tool returns the following file: 
+`tophat.bam`: BAM file containing the alignments
 
 If your RNA-seq data was produced with a stranded/directional protocol, it is important that you select the correct strandedness option in the parameter "Library type": fr-unstranded (Standard Illumina).
 
@@ -151,11 +147,8 @@ ii. # of Aligned Reads
 iii. % Discordance
 
 _Note: $ discordance is a concept that applies only to paired-end (PE) data, we do not need to worry about it since our data is single-end (SE)._
-
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-6.jpg)
-
 Looking at the above results for percentage alignment, we can see that the avg. % alignment was about 39% which in general is a poor alignment percentage, basically indicating enough reads could not be mapped to the reference genome. See the below slide which summarizes some of the possible causes.
-
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-7.jpg)
 
 ##### Module 1B
@@ -169,9 +162,7 @@ The below flowchart summarizes the workflow to obtain a 'good size' gene list fo
 General note:
 
 Do we need to scale genomics data? It depends. If we are working with raw gene expression data from RNA-Seq or gene expression microarrays, then definitely say yes. Genes (and isoforms) can have dramatically different levels of expression- some genes are lowly expressed, others are highly expressed. So if we had values such as FPKM, TPM, exon counts, signal intensities, etc., then this data should definitely be scaled before clustering analysis so that the highly expressed genes don’t “drive the results”. If we already normalized the gene expression data and were looking at Log2 fold differences across samples compared to a reference, for example, then scaling the data is probably not as necessary.
-
 ![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-8.jpg)
-
 - Make a Heatmap, Dendrogram, and PCA plot(s) of the filtered FPKM values – For dendrogram and PCA plot, plot SAMPLES not GENES. For Heatmap you can plot SAMPLES, GENES or BOTH.
 \[Understand how the samples cluster using these plots. Do they group the way you would expect based on the conditions? What is your interpretation of this view of the data?]
 
@@ -209,6 +200,14 @@ Newer aligners will tend to perform better, so it is not surprising that we are 
 ##### Module 3
 ### 8. **Pathway analysis**
 - Information about upregulated/downregulated gene lists and source and affected pathways.
-- Select a list of genes that were differentially expressed and were UPREGULATED in a treatment vs. control comparison. 
+Use the R script provided in this directory (_cuffdiff_analysis.R_), on your _gene_exp.diff_ and _genes.fpkm_tracking_ files. Use custom log2FC and p-value filters to reduce the size of your initial gene list to about ~50-850 genes. Filter out the upregulated genes and the downregulated genes based on the logic in the flowchart described in [Module 1B section 6](https://github.com/sujaypatil96/rnaseq-pipeline#6-cuffdiff-results).
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-14.jpg)
+- Select a list of genes that were differentially expressed and were UPREGULATED in a treatment vs. control comparison.
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-15.jpg)
+You can find the list of upregulated genes in the _upregulated_genes.txt_ file in this directory.
 - Select a list of genes that were differentially expressed and were DOWNREGULATED in a treatment vs. control comparison.
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-16.jpg)
+You can find the list of downregulated genes in the _downregulated_genes.txt_ file in this directory.
 - Submit each list to IPA for a simple pathway analysis (ORA - overrepresentation analysis). Describe affected pathways that interest you, a hypothesis about why this pathway might be UP or DOWN in the conditions you chose.
+Per the below screenshot you can see that APOE gene has appeared in our list of upgregulated genes which implies that there is a change in the expression levels of this gene in Alzheimer's patients. Therefore, we have confirmed our initial hypothesis.
+![alt text](https://github.com/sujaypatil96/rnaseq-pipeline/blob/master/assets/images/TRGN515_Sujay_Patil-17.jpg)
